@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>后台管理系统</title>
+    <style>
+        #info_image:hover {
+            transform: scale(3);
+        }
+
+        #info_image:hover {
+            transform: scale(3);
+        }
+
+        .zhezhao {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background: black;
+            width: 100%;
+            height: 100%;
+        {#opacity: 0.5;#} background: rgba(0, 0, 0, 0.5)
+        }
+
+        .tankuang {
+            position: relative;
+            background: #fff;
+            width: 50%;
+            height: 80%;
+            border-radius: 5px;
+            margin: 5% auto;
+        }
+
+        .zhezhao2 {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background: black;
+            width: 100%;
+            height: 100%;
+        {#opacity: 0.5;#} background: rgba(0, 0, 0, 0.5)
+        }
+
+        .tankuang2 {
+            position: relative;
+            background: #fff;
+            width: 50%;
+            height: 80%;
+            border-radius: 5px;
+            margin: 5% auto;
+        }
+
+        .zhezhao3 {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background: black;
+            width: 100%;
+            height: 100%;
+        {#opacity: 0.5;#} background: rgba(0, 0, 0, 0.5)
+        }
+
+        .tankuang3 {
+            position: relative;
+            background: #fff;
+            width: 50%;
+            height: 80%;
+            border-radius: 5px;
+            margin: 5% auto;
+        }
+
+        #header {
+            padding-top: 50px;
+            height: 80px;
+        }
+
+        #header-right {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            background: red;
+            color: #fff;
+            right: 5px;
+            top: 5px;
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        function shanchu(auth_id) {
+            var yzm = '8564';
+            let number = "";
+            var n = 4;//这个值可以改变的，对应的生成多少个数字，根据自己需求所改
+            for (var i = 0; i < n; i++) {
+                number += Math.floor(Math.random() * 10);
+            }
+            var message = prompt("确定要删除该分类吗？\n请输入验证码 " + number, "");
+            if (message === number) {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {
+                    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    // IE6, IE5 浏览器执行代码
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.open("POST", "/delete_auth", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send("auth_id=" + auth_id);
+                alert('删除成功！');
+                location.reload();
+            } else {
+                alert('验证码错误，请重新输入!')
+            }
+        }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/admin_profile">后台管理系统</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/admin_profile">首页<span class="sr-only">(current)</span></a></li>
+                <li><a href="/info_manage">信息管理</a></li>
+                <li><a href="/user_manage">用户管理</a></li>
+                <li><a href="/class_manage">分类管理</a></li>
+                <li class="active"><a href="/auth_manage">审核管理</a></li>
+                <li><a href="/system_data">网站数据</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>您好 {{ user }}</a></li>
+                <li><a href="/admin_logout">退出</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container" style="width: 90%">
+    <div class="tab-pane fade in active" id="info" style="text-align: center">
+        <p style="font-size: 20px"><span>审核员管理</span>&nbsp;&nbsp;&nbsp;&nbsp;<span><button class="btn-dark" onclick="tianjia()">添加审核员</button></span>
+        <div>
+            <table class="table table-striped table-hover" style="text-align: center">
+                <tr style="text-align: center">
+                    <th style="text-align: center">索引</th>
+                    <th style="text-align: center">账号</th>
+                    <th style="text-align: center">密码</th>
+                    {#                    <th style="text-align: center">分类下帖子数量</th>#}
+                    <th style="text-align: center">审核帖子数</th>
+                    <th style="text-align: center">添加时间</th>
+                    <th style="text-align: center; width: 100px">操作</th>
+                </tr>
+                {% for data in data %}
+                    <tr id="{{ data.id }}">
+                        <td style="vertical-align: middle">{{ data.id }}</td>
+                        <td style="vertical-align: middle" class="username">{{ data.username }}</td>
+                        <td style="vertical-align: middle" class="password">{{ data.password }}</td>
+                        {#                        <td style="vertical-align: middle">待完善</td>#}
+                        <td style="vertical-align: middle">{{ data.exam_count }}</td>
+                        <td style="vertical-align: middle">{{ data.date }}</td>
+                        <td style="vertical-align: middle">
+                            <p>
+                                <button class="btn-default" onclick="bianji({{ data.id }})">编辑</button>
+                            </p>
+                            <p>
+                                <button class="btn-danger" onclick="shanchu({{ data.id }})">删除</button>
+                            </p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <div style="text-align: center; padding-top: 20px; color:#FF0000; padding-bottom: 20px; background-color: #c9c9c9">
+                {% if page==1 %}
+                    <span><a href="/class_manage/{{ 1 }}">首页</a></span>
+                    <span title="当前页">当前页：{{ page }}</span>
+                    <span><a href="/class_manage/{{ page+1 }}">下一页</a></span>
+                    <span><a href="/class_manage/{{ page_num+1 }}">尾页</a></span>
+                    <span>总页数：{{ page_num + 1 }}</span>
+                {% else %}
+                    <span><a href="/class_manage/{{ 1 }}">首页</a></span>
+                    <span title="当前页">当前页：{{ page }}</span>
+                    <span title="上一页"><a href="/class_manage/{{ page-1 }}">上一页</a></span>
+                    <span><a href="/class_manage/{{ page+1 }}">下一页</a></span>
+                    <span><a href="/class_manage/{{ page_num+1 }}">尾页</a></span>
+                    <span>总页数：{{ page_num + 1 }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="zhezhao2" id='zhezhao2'>
+    <div class="tankuang2">
+        <div id="header" style="text-align: center">
+            <span style="font-size: 18px">添加审核员</span>
+            <div id="header-right" onclick="hidder2()">x</div>
+        </div>
+        <div style="text-align: left; padding-left: 30%">
+            <br>
+            <form method="post" action="/admin_add_auth" enctype="multipart/form-data">
+                <label for="bj_id">账号：</label><input id="tj_username" style="width: 50%" name="username"
+                                                     placeholder="审核员账号"><br><br>
+                <label for="bj_user_account">密码：</label><input id="tj_password" style="width: 50%"
+                                                               name="password" placeholder="审核员密码"><br><br>
+                <br><br>
+                <br>
+                <div style="padding-left: 20%">
+                    <span><button class="btn-danger" type="submit">完成添加</button></span>
+                    <span><button class="btn-primary" onclick="hidder2()">取消</button></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="zhezhao3" id='zhezhao3'>
+    <div class="tankuang3">
+        <div id="header" style="text-align: center">
+            <span style="font-size: 18px">编辑审核员</span>
+            <div id="header-right" onclick="hidder3()">x</div>
+        </div>
+        <div style="text-align: left; padding-left: 30%">
+            <br>
+            <form method="post" action="/admin_edit_auth" enctype="multipart/form-data">
+                <input id="bj_auth_id" type="hidden" name="auth_id">
+                <label for="bj_id">账号：</label><input id="bj_username" style="width: 50%" name="username"
+                                                     placeholder="审核员账号"><br><br>
+                <label for="bj_user_account">密码：</label><input id="bj_password" style="width: 50%"
+                                                               name="password" placeholder="审核员密码"><br><br>
+                <br><br>
+                <br>
+                <div style="padding-left: 20%">
+                    <span><button class="btn-danger" type="submit">完成编辑</button></span>
+                    <span><button class="btn-primary" onclick="hidder3()">取消</button></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('zhezhao2').style.display = "none";
+    document.getElementById('zhezhao3').style.display = "none";
+
+    function tianjia() {
+        document.getElementById('zhezhao2').style.display = "";
+    }
+
+    function bianji(class_id) {
+        var ele = document.getElementById(class_id);
+        username = ele.getElementsByClassName('username').item(0).textContent;
+        password = ele.getElementsByClassName('password').item(0).textContent;
+        document.getElementById('bj_username').value = username;
+        document.getElementById('bj_password').value = password;
+        document.getElementById('bj_auth_id').value = class_id;
+        document.getElementById('zhezhao3').style.display = "";
+    }
+
+    function hidder2() {
+        document.getElementById('zhezhao2').style.display = "none";
+    }
+
+    function hidder3() {
+        document.getElementById('zhezhao3').style.display = "none";
+    }
+</script>
+</body>
+</html>

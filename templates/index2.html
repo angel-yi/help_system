@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>图书推荐系统</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../static/css/weui.min.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    {#<script type="text/javascript" src="http://weui.shanliwawa.top/js/zepto.min.js"></script>#}
+    {#<script type="text/javascript" src="http://weui.shanliwawa.top/js/zepto.weui.js"></script>#}
+    <script type="text/javascript">    weui.alert('alert');</script>
+    <script>
+        // ajax请求数据
+        $.ajax({
+            //请求地址
+            url: "../static/json/data.json",
+            //请求方式 get post
+            type: "get",
+            // 按照方式解析
+            dataType: "JSON",
+            // data: 表示发送过去的参数
+            // 请求成功
+            success: function (data) {
+                $(".us_info").html("");
+                for (var i = 0; i < data.length; i++) {
+                    $(".us_info").append('哈哈哈');
+                }
+            },
+            // 请求失败
+            error: function () {
+                alert("失败 网络出错了");
+            },
+            // 是否异步
+            async: true,
+        })
+    </script>
+</head>
+
+<body style="height: 100%">
+
+{#顶部导航栏开始#}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <div class="weui-navbar__item">
+            闲置处理
+        </div>
+        <div class="weui-navbar__item">
+            表白墙
+        </div>
+        <div class="weui-navbar__item">
+            爱心捐赠
+        </div>
+        <div class="weui-navbar__item">
+            其他信息
+        </div>
+    </div>
+
+    <div class="weui-tab__panel">
+
+        {% for info in info_data %}
+            <div class="weui-panel weui-panel_access us_panel">
+                <div class="weui-panel__hd">
+                    <div class="us_info">
+                        <img style="height: 2em; width: 2em; border-radius: 50%"
+                             src="{{ info.info_user_data.user_head_image }}">
+                        <span class="us_name">{{ info.info_user_data.user_name }}</span>&nbsp;&nbsp;
+                        <span>{{ info.info_date }}</span>&nbsp;&nbsp;
+                        {% if info.info_state == 0 %}
+                            <span>正在进行</span>
+                        {% elif info.info_state == 1 %}
+                            <span>已完结</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="weui-panel__bd">
+                    <a href="/detail/{{ info.info_id }}" class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__hd">
+                            <img class="weui-media-box__thumb" src="{{ info.info_image }}">
+                        </div>
+                        <div class="weui-media-box__bd">
+                            <h4 class="weui-media-box__title">{{ info.info_title }}</h4>
+                            <p class="weui-media-box__desc">{{ info.info_content }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+
+        {#			<div id="s0" index_class="weui-tab__content" style="opacity: 1; display: none;">唐朝MM</div>#}
+        {#            <div id="s1" index_class="weui-tab__content" style="display: block; opacity: 1;">汉朝MM</div>#}
+        {#            <div id="s2" index_class="weui-tab__content" style="display: none;">三国MM</div>#}
+    </div>
+</div>
+{#顶部导航栏结束#}
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+</html>

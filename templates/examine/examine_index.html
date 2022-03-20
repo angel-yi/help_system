@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>审核信息</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../static/css/weui.min.css">
+    <link rel="stylesheet" href="../../static/css/message.css">
+</head>
+
+<body style="height: 100%">
+
+
+{#顶部导航栏开始#}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <div class="weui-navbar__item">
+            审核员须知
+        </div>
+        <div class="weui-navbar__item">
+            {{ examine_user }}
+        </div>
+        <div class="weui-navbar__item">
+
+            <a href="/examine_logout">
+                退出账号
+            </a>
+        </div>
+    </div>
+</div>
+{#顶部导航栏结束#}
+<div class="weui-tab__panel"></div>
+{# 消息列表开始 #}
+<div style="width: 90%; padding-left: 20px; padding-top: 30px;">
+    <div style="height: 520px; background-color: #efefef; border-radius: 5%">
+        <div style="text-align: center; padding-top: 10px">
+            <h2>审核员条例</h2>
+            {#        <img style="width: 100px; height: 100px; border-radius: 30%;" src="{{ message.user_head_image }}" alt="">#}
+            {#        <p class="us_name" style="color: red">{{ message.user_name }}</p>#}
+            {#        <p>{{ message.send_date }}</p>#}
+        </div>
+        <br>
+        <div style="padding-left: 30px">
+            <h4>一、审核员由系统管理员确定</h4>
+            <h4>二、审核员职责为审核系统中用户发布的未审核信息</h4>
+            <h4>三、审核员所审核的信息及结果均会记录数据库，需合理判断</h4>
+            <h4>四、具体审核信息标准：</h4>
+            {#            <br>#}
+            <p>· 1、政治敏感</p>
+            <p>· 2、违法有害</p>
+            <p>· 3、未成年有害信息</p>
+            <p>· 4、色情低俗</p>
+            <p>· 5、攻击引战</p>
+            <p>· 6、广告营销</p>
+            <p>· 7、诈骗、骚扰、怂恿教唆、重复灌水</p>
+            <h4>五、最终解释权归本站所有</h4>
+            <br>
+            {#        <div style="background-color: #a6e1ec; width: 90%; height: 165px; border-radius: 5%">#}
+            {#            <textarea style="font-size: 1.3em; padding: 10px; color: black; height: 135px; width: 90%; background-color: #a6e1ec; border: 0" readonly>{{ message.message_content }}</textarea>#}
+            {#        </div>#}
+        </div>
+    </div>
+</div>
+<br>
+<div style="text-align: center">
+    <span>
+        <a href="/index_class">
+            <button class="weui-btn_warn" style="width: 40%; height: 50px; font-size: 20px; color: white">返回</button>
+        </a>
+{#    </span>#}
+{#    <span>#}
+        <a href="/examine_detail">
+            <button class="weui-btn_primary" style="width: 40%; height: 50px; font-size: 20px; color: white"
+                    onclick="yz_message()">我同意</button>
+        </a>
+    </span>
+</div>
+{# 消息列表结束 #}
+
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>大学生信息发布</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../static/css/weui.min.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script type="text/javascript">
+        function edit_info(info_id) {
+            window.location.href = "/edit_info/" + info_id;
+        }
+
+        function delete_info(info_id) {
+            var r = confirm("确认删除吗？");
+            if (r === true) {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {
+                    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    // IE6, IE5 浏览器执行代码
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.open("GET", "/delete_info/" + String(info_id), true);
+                xmlhttp.send();
+                alert('删除成功！');
+                location.reload();
+            } else {
+                x = "";
+            }
+        }
+    </script>
+</head>
+
+<body style="height: 100%">
+
+{#顶部导航栏开始#}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <div class="weui-navbar__item">
+            我发布的
+        </div>
+    </div>
+
+    <div class="weui-tab__panel">
+        {% for info in info_data %}
+            <div class="weui-panel weui-panel_access us_panel">
+                <div class="weui-panel__hd">
+                    <div class="us_info">
+                        <img style="height: 2em; width: 2em; border-radius: 50%" src="{{ info.user_head_image }}">
+                        <span class="us_name">{{ info.user_name }}</span>&nbsp;&nbsp;
+                        <span>{{ info.info_date }}</span>&nbsp;&nbsp;
+                        <span>{{ info.info_class_name }}</span>
+                    </div>
+                </div>
+                <div class="weui-panel__bd">
+                    <a href="/detail/{{ info.info_id }}" class="weui-media-box weui-media-box_appmsg">
+                        {% if info.info_image == '' %}
+                            <div class="weui-media-box__hd">
+                                {#                                <img height='300' width='300' id='us_detail_image' class="weui-media-box__thumb" src="{{ info.info_image }}">#}
+                            </div>
+                        {% else %}
+                            <div class="weui-media-box__hd">
+                                <img height='300' width='300' id='us_detail_image' class="weui-media-box__thumb"
+                                     src="{{ info.info_image }}" onerror="this.src='../static/images/ktp.png';this.onerror=null">
+                            </div>
+                        {% endif %}
+                        <div class="weui-media-box__bd">
+                            <h4 class="weui-media-box__title">{{ info.info_title }}</h4>
+                            <p class="weui-media-box__desc">{{ info.info_content }}</p>
+                        </div>
+                    </a>
+                    <div style="text-align: center">
+                        <span><button onclick="edit_info({{ info.info_id }})" class="weui-btn_primary"
+                                      style="width: 100px; height: 40px; font-size: 1.2em; color: white">修改</button></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span><button onclick="delete_info({{ info.info_id }})" class="weui-btn_warn"
+                                      style="width: 100px; height: 40px; font-size: 1.2em; color: white">删除</button></span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{#顶部导航栏结束#}
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+</html>

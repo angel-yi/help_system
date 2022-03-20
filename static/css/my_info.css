@@ -1,0 +1,89 @@
+.us_name {
+    font-size: 1.2rem;
+}
+
+.jubao {
+    text-align: right
+}
+
+.us_panel {
+    background-color: #e0e0e0
+}
+
+#tabbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    /*top:0; */ /*置顶*/
+    bottom: 0px; /*置底*/
+    margin: auto;
+}
+
+#navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    top: 0;
+    /*bottom: 0px; !*置底*!*/
+    margin: auto;
+}
+
+.none {
+    display: none
+}
+
+.us_user_info {
+    width: 100%;
+    height: 250px;
+    /*background-color: #afd9ee;*/
+    text-align: center;
+    /*padding-top: 30px;*/
+    /*margin-top: 30px;*/
+}
+
+.us_user_info_img {
+    padding-top: 30px;
+    text-align: center;
+}
+
+.us_user_info_img table {
+    text-align: center;
+}
+
+.us_user_info_img img {
+    width: 80px;
+    height: 80px;
+}
+
+.us_top_panel {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: #e6e6ea;
+}
+
+.us_table {
+    width: 100%;
+}
+
+.us_info_table {
+    padding-top: 30px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.us_info_table tr td img {
+    width: 40px;
+    height: 40px;
+}
+
+.us_cells {
+    margin-top: 0;
+}

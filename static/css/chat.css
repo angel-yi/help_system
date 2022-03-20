@@ -1,0 +1,116 @@
+.us_name {
+    font-size: 1.2rem;
+}
+
+.jubao {
+    text-align: right
+}
+
+.us_panel {
+    background-color: #e0e0e0
+}
+
+#tabbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    /*top:0; */ /*置顶*/
+    bottom: 0px; /*置底*/
+    margin: auto;
+}
+
+#navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    top: 0;
+    /*bottom: 0px; !*置底*!*/
+    margin: auto;
+}
+
+.none {
+    display: none
+}
+
+.us_message {
+    padding-top: 5px;
+    padding-bottom: 0px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.us_message_re {
+    text-align: right;
+}
+
+#us_message_re {
+    text-align: right;
+}
+
+#us_message_re span {
+    overflow: hidden;
+}
+
+.us_message_content {
+    width: 100%;
+    background-color: #66afe9;
+}
+
+.us_message_content_div {
+    width: 70%;
+    background-color: #9ed99d;
+    border-radius: 5%;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+}
+
+.us_message_content_div_1 {
+    width: 70%;
+    background-color: #66afe9;
+    border-radius: 5%;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+}
+
+.user_head_image {
+    border-radius: 50%;
+}
+
+.us_input_chat_send {
+    height: 45px;
+}
+
+.us_message_form {
+    height: 50px;
+    /*padding-top: 4%;*/
+    width: 100%;
+    padding: 3px;
+    margin: 1px;
+}
+
+.us_message_form .us_message_text {
+    height: 35px;
+    width: 250px;
+    border-radius: 20px;
+    background-color: #c7c7c7;
+    color: black;
+    padding-left: 5px;
+}
+
+.us_message_form .us_message_text_submit {
+    height: 35px;
+    width: 60px;
+    border-radius: 20px;
+    background-color: #449d44;
+    color: white;
+}

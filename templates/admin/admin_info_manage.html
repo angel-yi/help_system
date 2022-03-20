@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>后台管理系统</title>
+    <style>
+        #info_image:hover {
+            transform: scale(3);
+        }
+
+        .zhezhao {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background: black;
+            width: 100%;
+            height: 100%;
+        {#opacity: 0.5;#} background: rgba(0, 0, 0, 0.5)
+        }
+
+        .tankuang {
+            position: relative;
+            background: #fff;
+            width: 50%;
+            height: 80%;
+            border-radius: 5px;
+            margin: 5% auto;
+        }
+
+        .zhezhao2 {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background: black;
+            width: 100%;
+            height: 100%;
+        {#opacity: 0.5;#} background: rgba(0, 0, 0, 0.5)
+        }
+
+        .tankuang2 {
+            position: relative;
+            background: #fff;
+            width: 50%;
+            height: 80%;
+            border-radius: 5px;
+            margin: 5% auto;
+        }
+
+        #header {
+            padding-top: 50px;
+            height: 80px;
+        }
+
+        #header-right {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 5px;
+            background: red;
+            color: #fff;
+            right: 5px;
+            top: 5px;
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        function shanchu(info_id) {
+            var yzm = '3322';
+            var message = prompt("确定要删除改信息吗？\n请输入验证码 " + yzm, "");
+            if (message === yzm) {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {
+                    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    // IE6, IE5 浏览器执行代码
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.open("POST", "/delete_info", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send("info_id=" + info_id);
+                alert('删除成功！');
+                location.reload();
+            } else {
+                alert('验证码错误，请重新输入!')
+            }
+        }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/admin_profile">后台管理系统</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/admin_profile">首页<span class="sr-only">(current)</span></a></li>
+                <li class="active"><a href="/info_manage">信息管理</a></li>
+                <li><a href="/user_manage">用户管理</a></li>
+                <li><a href="/class_manage">分类管理</a></li>
+                <li><a href="/auth_manage">审核管理</a></li>
+                <li><a href="/system_data">网站数据</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a>您好 {{ user }}</a></li>
+                <li><a href="/admin_logout">退出</a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div class="container" style="width: 90%">
+    <div class="tab-pane fade in active" id="info" style="text-align: center">
+        <p style="font-size: 20px">信息管理</p>
+        {#        <div>#}
+        {#            筛选设置#}
+        {##}
+        {#        </div>#}
+        <div>
+            <table class="table table-striped table-hover" style="text-align: center">
+                <tr style="text-align: center">
+                    <th style="text-align: center">索引</th>
+                    <th style="text-align: center">标题</th>
+                    <th style="text-align: center; width: 30%">内容</th>
+                    <th style="text-align: center">用户账户</th>
+                    <th style="text-align: center">分类</th>
+                    <th style="text-align: center">图片</th>
+                    <th style="text-align: center">发布日期</th>
+                    <th style="text-align: center">审核情况</th>
+                    <th style="text-align: center; width: 100px">操作</th>
+                </tr>
+                {% for data in data %}
+                    <tr id="{{ data.info_id }}">
+                        <td style="vertical-align: middle">{{ data.info_id }}</td>
+                        <td style="vertical-align: middle" class="title">{{ data.info_title }}</td>
+                        <td style="vertical-align: middle" class="content">{{ data.info_content[0:150] }}...</td>
+                        <td style="vertical-align: middle" class="user_id">{{ data.info_user_id }}</td>
+                        <td style="vertical-align: middle" class="class_name"
+                            id="{{ data.info_class_value }}">{{ data.info_class_name }}</td>
+                        <td style="vertical-align: middle" class="info_image">
+                            <img id="info_image" src="{{ data.info_image }}" width="100" height="100" alt="图片" onerror="this.src='../static/images/ktp.png';this.onerror=null"">
+                        </td>
+
+                        <td style="vertical-align: middle" class="info_data">{{ data.info_date }}</td>
+                        <td style="vertical-align: middle" class="info_examine">{{ data.info_examine }}</td>
+                        <td style="vertical-align: middle">
+                            <p>
+                                <button class="btn-default" onclick="bianji({{ data.info_id }})">编辑</button>
+                            </p>
+{#                            <p>#}
+{#                                <button class="btn-primary" onclick="shenhe({{ data.info_id }})">审核</button>#}
+{#                            </p>#}
+                            <p>
+                                <button class="btn-danger" onclick="shanchu({{ data.info_id }})">删除</button>
+                            </p>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+            </table>
+            <div style="text-align: center; padding-top: 20px; color:#FF0000; padding-bottom: 20px; background-color: #c9c9c9">
+                {% if page==1 %}
+                    <span><a href="/info_manage/{{ 1 }}">首页</a></span>
+                    <span title="当前页">当前页：{{ page }}</span>
+                    <span><a href="/info_manage/{{ page+1 }}">下一页</a></span>
+                    <span><a href="/info_manage/{{ page_num+1 }}">尾页</a></span>
+                    <span>总页数：{{ page_num + 1 }}</span>
+                {% else %}
+                    <span><a href="/info_manage/{{ 1 }}">首页</a></span>
+                    <span title="当前页">当前页：{{ page }}</span>
+                    <span title="上一页"><a href="/info_manage/{{ page-1 }}">上一页</a></span>
+                    <span><a href="/info_manage/{{ page+1 }}">下一页</a></span>
+                    <span><a href="/info_manage/{{ page_num+1 }}">尾页</a></span>
+                    <span>总页数：{{ page_num + 1 }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="zhezhao" id='zhezhao'>
+    <div class="tankuang">
+        <div id="header" style="text-align: center">
+            <span style="font-size: 18px">审核信息</span>
+            <div id="header-right" onclick="hidder()">x</div>
+        </div>
+        <div style="text-align: left; padding-left: 20%">
+            <h4 id="biaoti">标题</h4>
+            <textarea id="neirong" style="width: 80%" rows="8">内容</textarea>
+            <p id="yonghu">用户</p>
+            <p id="fenlei">分类</p>
+            <img id="tupian" alt="图片" src="" width="30%" height="30%">
+            <p id="faburiqi">发布日期</p>
+            <p id="shenhe">审核情况</p>
+            <div style="text-align: left">
+                <span><button class="btn-danger" style="width: 200px; height: 50px">审核不通过</button></span>
+                <span><button class="btn-primary" style="width: 200px; height: 50px">审核通过</button></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="zhezhao2" id='zhezhao2'>
+    <div class="tankuang2">
+        <div id="header" style="text-align: center">
+            <span style="font-size: 18px">编辑信息</span>
+            <div id="header-right" onclick="hidder2()">x</div>
+        </div>
+        <div style="text-align: center">
+            <br>
+            <form method="post" action="/admin_edit_info">
+                <input id="bj_id" style="width: 60%" name="info_id" type="hidden">
+                <input id="bj_biaoti" style="width: 60%" name="bj_biaoti"><br><br>
+                <textarea id="bj_neirong" style="width: 60%" rows="4" name="bj_neirong"></textarea><br><br>
+                <input id="bj_yonghu" style="width: 60%" readonly name="bj_yonghu"><br><br>
+                <div>
+                    <select class="weui-select" name="info_class" required style="width: 60%">
+                        <option value="" id="bj_fenlei"></option>
+                        {% for info_class in info_class %}
+                            <option value="{{ info_class.info_class_value }}">{{ info_class.info_class_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br><br>
+                <img id="bj_tupian" alt="图片" src="" width="100" height="100"><br><br>
+                <input id="bj_faburiqi" style="width: 60%" readonly><br><br>
+                {#            审核情况<input id="bj_shenhe"><br>#}
+                <br>
+                <div>
+                    <span><button class="btn-danger" type="submit">完成编辑</button></span>
+                    <span><button class="btn-primary">取消</button></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.getElementById('zhezhao').style.display = "none";
+    document.getElementById('zhezhao2').style.display = "none";
+
+    function shenhe(info_id) {
+        var ele = document.getElementById(info_id);
+        title = ele.getElementsByClassName('title').item(0).textContent;
+        content = ele.getElementsByClassName('content').item(0).textContent;
+        user_id = ele.getElementsByClassName('user_id').item(0).textContent;
+        class_name = ele.getElementsByClassName('class_name').item(0).textContent;
+        info_data = ele.getElementsByClassName('info_data').item(0).textContent;
+        info_examine = ele.getElementsByClassName('info_examine').item(0).textContent;
+        info_image = ele.getElementsByClassName('info_image').item(0).getElementsByTagName('img').item(0).getAttribute('src');
+
+        console.log(info_image)
+        document.getElementById('biaoti').innerText = title;
+        document.getElementById('neirong').innerText = content;
+        document.getElementById('yonghu').innerText = user_id;
+        document.getElementById('fenlei').innerText = class_name;
+        document.getElementById('tupian').src = info_image;
+        document.getElementById('faburiqi').innerText = info_data;
+        document.getElementById('shenhe').innerText = info_examine;
+        document.getElementById('zhezhao').style.display = "";
+    }
+
+    function bianji(info_id) {
+        var ele = document.getElementById(info_id);
+        title = ele.getElementsByClassName('title').item(0).textContent;
+        content = ele.getElementsByClassName('content').item(0).textContent;
+        user_id = ele.getElementsByClassName('user_id').item(0).textContent;
+        class_name = ele.getElementsByClassName('class_name').item(0).textContent;
+        class_value = ele.getElementsByClassName('class_name').item(0).id;
+        info_data = ele.getElementsByClassName('info_data').item(0).textContent;
+        info_examine = ele.getElementsByClassName('info_examine').item(0).textContent;
+        info_image = ele.getElementsByClassName('info_image').item(0).getElementsByTagName('img').item(0).getAttribute('src');
+        console.log(info_image)
+        document.getElementById('bj_biaoti').value = title;
+        document.getElementById('bj_neirong').value = content;
+        document.getElementById('bj_yonghu').value = user_id;
+        document.getElementById('bj_fenlei').innerText = class_name;
+        document.getElementById('bj_id').value = info_id;
+        document.getElementById('bj_tupian').src = info_image;
+        document.getElementById('bj_faburiqi').value = info_data;
+        {#document.getElementById('bj_shenhe').value = info_examine;#}
+        document.getElementById('zhezhao2').style.display = "";
+    }
+
+    function hidder() {
+        document.getElementById('zhezhao').style.display = "none";
+    }
+
+    function hidder2() {
+        document.getElementById('zhezhao2').style.display = "none";
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+.us_name {
+    font-size: 1.2rem;
+}
+
+.jubao {
+    text-align: right
+}
+
+/*.us_abstract{ text-indent: 2em}*/
+#tabbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    /*top:0; */ /*置顶*/
+    bottom: 0px; /*置底*/
+    margin: auto;
+}
+
+#navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    top: 0;
+    /*bottom: 0px; !*置底*!*/
+    margin: auto;
+}
+
+.none {
+    display: none
+}
+
+.us_image {
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
+}
+
+.us_chat_image {
+    height: 30px;
+    width: 30px;
+    margin-left: 30px;
+}
+
+.us_search {
+    height: 50px;
+}
+
+.us_message_form {
+    height: 50px;
+    /*padding-top: 4%;*/
+    width: 98%;
+    padding: 3px;
+    margin: 1px;
+}
+
+.us_message_form .us_message_text {
+    height: 35px;
+    width: 240px;
+    border-radius: 20px;
+    background-color: #c7c7c7;
+    color: black;
+    padding-left: 5px;
+}
+
+.us_comment {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}
+
+.us_comment_p {
+    font-size: 1em;
+}
+
+.us_message_form .us_message_text_submit {
+    height: 35px;
+    width: 60px;
+    border-radius: 20px;
+    font-size: 1em;
+    background-color: #1aad19;
+    color: white;
+}

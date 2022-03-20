@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>大学生信息发布</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../static/css/weui.min.css">
+    <link rel="stylesheet" href="../static/css/add_info.css">
+    <script type="text/javascript" src="../static/js/detail.js"></script>
+    <script>
+        function back_up() {
+            self.location = document.referrer;
+        }
+    </script>
+    <script>
+
+        function showImg() {
+            var img_file = document.getElementById('uploaderFiles');
+            console.log(img_file.src)
+            var file = document.getElementById('uploaderInput').files[0];
+            var re = new FileReader();
+            re.onloadend = function () {
+                {#img_file.src = re.result;#}
+                img_file.style = "background-image: url(" + re.result + ");"
+            }
+            if (file) {
+                re.readAsDataURL(file);
+            } else {
+                img_file.src = "";
+            }
+            console.log(img_file.src)
+            {#re.readAsDataURL(file);#}
+            {#re.onload = function(re){#}
+            {#    $('.img_id').attr("src", re.result);#}
+        }
+    </script>
+</head>
+
+<body style="height: 100%">
+
+{#顶部导航栏开始#}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <a href="#" onclick="back_up()" style="color: #737373"><p>&nbsp;&nbsp;<<</p></a>
+        <div class="weui-navbar__item">
+            发布信息
+        </div>
+    </div>
+    <div class="weui-tab__panel"></div>
+    <br>
+    <div class="info_notice">
+        信息发布规则：请不要发布违法违规信息
+    </div>
+    <div class="us_info">
+        <form method="post" action="/add_info/add_info" enctype="multipart/form-data">
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell weui-cell_active">
+                    <div class="weui-cell__hd"><label class="weui-label">标题</label></div>
+                    <div class="weui-cell__bd">
+                        <input name="title" id="js_input" class="weui-input" placeholder="请输入标题" required>
+                    </div>
+                </div>
+                <div class="weui-cell weui-cell_active">
+                    <div class="weui-cell__hd"><label class="weui-label">分类</label></div>
+                    <div class="weui-cell__bd">
+                        <select class="weui-select" name="info_class" required>
+                            <option value="">--请选择分类--</option>
+                            {% for info_class in info_class %}
+                                <option value="{{ info_class.info_class_value }}">{{ info_class.info_class_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {#                </div>#}
+            <textarea id="summernote"></textarea>
+            <script>
+                $('#summernote').summernote({
+                    placeholder: '请输入详细描述',
+                    tabsize: 2,
+                    height: 120,
+                    {#toolbar: [#}
+                    {#    ['style', ['style']],#}
+                    {#    ['font', ['bold', 'underline', 'clear']],#}
+                    {#    ['color', ['color']],#}
+                    {#    ['para', ['ul', 'ol', 'paragraph']],#}
+                    {#    ['table', ['table']],#}
+                    {#    ['insert', ['link', 'picture', 'video']],#}
+                    {#    ['view', ['fullscreen', 'codeview', 'help']]#}
+                    {#]#}
+                });
+                $(document).ready(function () {
+                    $('#summernote').summernote();
+                });
+                $('form').on('submit', function (e) {
+                    e.preventDefault();
+                    content = $('#summernote').summernote('code');
+                    info_class = document.getElementsByName('info_class')[0].value;
+                    title = document.getElementsByName('title')[0].value;
+                    data = 'title=' + title + '&content=' + content + '&info_class=' + info_class;
+                    $.ajax({
+                        url: "/add_info/add_info",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: data,
+                    });
+                    alert('发布成功！')
+                    location.href = "/";
+                });
+            </script>
+            {#            </div>#}
+            {#            <div>#}
+            {#                <input type="file" onchange="showImg()" id="img_file">#}
+            {#                <br>#}
+            {#                <img src="" alt="" id="img_id" style="width: 100px">#}
+            {#            </div>#}
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell  weui-cell_uploader">
+                    <div class="weui-cell__bd">
+                        <div class="weui-uploader">
+                            <div class="weui-uploader__hd">
+                                <p class="weui-uploader__title" style="text-align: left">图片上传</p>
+                            </div>
+                            <div class="weui-uploader__bd">
+                                <ul class="weui-uploader__files">
+                                    <li class="weui-uploader__file" id="uploaderFiles" style=""></li>
+                                </ul>
+                                <div class="weui-uploader__input-box">
+                                    <input id="uploaderInput" name="image" onchange="showImg()"
+                                           class="weui-uploader__input" type="file" accept="image/*" multiple="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button class="weui-btn weui-btn_primary" style="width: 200px">发布</button>
+        </form>
+    </div>
+</div>
+<div class="weui-tab">
+    <br>
+</div>
+{#顶部导航栏结束#}
+
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+<script>
+    document.getElementById("us_chat_image");
+</script>
+</html>

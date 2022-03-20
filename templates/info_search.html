@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>大学生信息发布</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../static/css/weui.min.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script type="text/javascript" src="../static/js/jquery.min.js"></script>
+    <script>
+        // ajax请求数据
+        var page = 1;
+        $.ajax({
+            //请求地址
+            url: "/api/search/" + "{{ word }}/" + page,
+            //请求方式 get post
+            type: "get",
+            // 按照方式解析
+            dataType: "JSON",
+            // data: 表示发送过去的参数
+            // 请求成功
+            success: function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    console.log(data[i]);
+                    if (data[i].info_image == '') {
+                        $("#us_panel").append(
+                            "<div class=\"weui-panel weui-panel_access us_panel\">" +
+                            "<div class=\"weui-panel__hd\">" +
+                            "<div class=\"us_info\">" +
+                            "<img style=\"height: 2em; width: 2em; border-radius: 50%; bottom: 0; top: 3px\" src=\"" + data[i].user_head_image + "\">" +
+                            "&nbsp;&nbsp;<span class=\"us_name\">" + data[i].user_name + "</span>&nbsp;&nbsp;" +
+                            "<span>" + data[i].info_date + "</span>&nbsp;&nbsp;" +
+                            "<span>" + data[i].info_class_name + "</span>" +
+                            "</div>" +
+                            "</div>" +
+                            "<div class=\"weui-panel__bd\">" +
+                            "<a href=\"/detail/" + data[i].info_id + "\" class=\"weui-media-box weui-media-box_appmsg\">" +
+                            "<div class=\"weui-media-box__hd\">" +
+                            {#"<img class=\"weui-media-box__thumb\" height='300' width='300' id='us_detail_image' src=\""+ data[i].info_image +"\" onerror=\"this.src='../static/images/index_user.png';this.onerror=null\">" +#}
+                            "</div>" +
+                            "<div class=\"weui-media-box__bd\">" +
+                            "<h4 class=\"weui-media-box__title\">" + data[i].info_title + "</h4>" +
+                            "<p class=\"weui-media-box__desc\">" + data[i].info_content + "</p>" +
+                            "</div>" +
+                            "</a>" +
+                            "</div>" +
+                            "</div>")
+                    } else {
+                        $("#us_panel").append(
+                            "<div class=\"weui-panel weui-panel_access us_panel\">" +
+                            "<div class=\"weui-panel__hd\">" +
+                            "<div class=\"us_info\">" +
+                            "<img style=\"height: 2em; width: 2em; border-radius: 50%; bottom: 0; top: 3px\" src=\"" + data[i].user_head_image + "\">" +
+                            "&nbsp;&nbsp;<span class=\"us_name\">" + data[i].user_name + "</span>&nbsp;&nbsp;" +
+                            "<span>" + data[i].info_date + "</span>&nbsp;&nbsp;" +
+                            "<span>" + data[i].info_class_name + "</span>" +
+                            "</div>" +
+                            "</div>" +
+                            "<div class=\"weui-panel__bd\">" +
+                            "<a href=\"/detail/" + data[i].info_id + "\" class=\"weui-media-box weui-media-box_appmsg\">" +
+                            "<div class=\"weui-media-box__hd\">" +
+                            "<img class=\"weui-media-box__thumb\" height='300' width='300' id='us_detail_image' src=\"" + data[i].info_image + "\" onerror=\"this.src='../static/images/ktp.png';this.onerror=null\">" +
+                            "</div>" +
+                            "<div class=\"weui-media-box__bd\">" +
+                            "<h4 class=\"weui-media-box__title\">" + data[i].info_title + "</h4>" +
+                            "<p class=\"weui-media-box__desc\">" + data[i].info_content + "</p>" +
+                            "</div>" +
+                            "</a>" +
+                            "</div>" +
+                            "</div>")
+                    }
+                }
+            },
+            // 请求失败
+            error: function () {
+                alert("失败 网络出错了");
+            },
+            // 是否异步
+            async: true,
+        })
+
+        function get_data(page) {
+            $.ajax({
+                //请求地址
+                url: "/api/search/" + "{{ word }}/" + page,
+                //请求方式 get post
+                type: "get",
+                // 按照方式解析
+                dataType: "JSON",
+                // data: 表示发送过去的参数
+                // 请求成功
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        console.log(data[i]);
+                        if (data[i].info_image == '') {
+                            $("#us_panel").append(
+                                "<div class=\"weui-panel weui-panel_access us_panel\">" +
+                                "<div class=\"weui-panel__hd\">" +
+                                "<div class=\"us_info\">" +
+                                "<img style=\"height: 2em; width: 2em; border-radius: 50%; bottom: 0; top: 3px\" src=\"" + data[i].user_head_image + "\">" +
+                                "&nbsp;&nbsp;<span class=\"us_name\">" + data[i].user_name + "</span>&nbsp;&nbsp;" +
+                                "<span>" + data[i].info_date + "</span>&nbsp;&nbsp;" +
+                                "<span>" + data[i].info_class_name + "</span>" +
+                                "</div>" +
+                                "</div>" +
+                                "<div class=\"weui-panel__bd\">" +
+                                "<a href=\"/detail/" + data[i].info_id + "\" class=\"weui-media-box weui-media-box_appmsg\">" +
+                                "<div class=\"weui-media-box__hd\">" +
+                                {#"<img class=\"weui-media-box__thumb\" height='300' width='300' id='us_detail_image' src=\""+ data[i].info_image +"\" onerror=\"this.src='../static/images/index_user.png';this.onerror=null\">" +#}
+                                "</div>" +
+                                "<div class=\"weui-media-box__bd\">" +
+                                "<h4 class=\"weui-media-box__title\">" + data[i].info_title + "</h4>" +
+                                "<p class=\"weui-media-box__desc\">" + data[i].info_content + "</p>" +
+                                "</div>" +
+                                "</a>" +
+                                "</div>" +
+                                "</div>")
+                        } else {
+                            $("#us_panel").append(
+                                "<div class=\"weui-panel weui-panel_access us_panel\">" +
+                                "<div class=\"weui-panel__hd\">" +
+                                "<div class=\"us_info\">" +
+                                "<img style=\"height: 2em; width: 2em; border-radius: 50%; bottom: 0; top: 3px\" src=\"" + data[i].user_head_image + "\">" +
+                                "&nbsp;&nbsp;<span class=\"us_name\">" + data[i].user_name + "</span>&nbsp;&nbsp;" +
+                                "<span>" + data[i].info_date + "</span>&nbsp;&nbsp;" +
+                                "<span>" + data[i].info_class_name + "</span>" +
+                                "</div>" +
+                                "</div>" +
+                                "<div class=\"weui-panel__bd\">" +
+                                "<a href=\"/detail/" + data[i].info_id + "\" class=\"weui-media-box weui-media-box_appmsg\">" +
+                                "<div class=\"weui-media-box__hd\">" +
+                                "<img class=\"weui-media-box__thumb\" height='300' width='300' id='us_detail_image' src=\"" + data[i].info_image + "\" onerror=\"this.src='../static/images/ktp.png';this.onerror=null\">" +
+                                "</div>" +
+                                "<div class=\"weui-media-box__bd\">" +
+                                "<h4 class=\"weui-media-box__title\">" + data[i].info_title + "</h4>" +
+                                "<p class=\"weui-media-box__desc\">" + data[i].info_content + "</p>" +
+                                "</div>" +
+                                "</a>" +
+                                "</div>" +
+                                "</div>")
+                        }
+                    }
+                },
+                // 请求失败
+                error: function () {
+                    alert("失败 网络出错了");
+                },
+                // 是否异步
+                async: true,
+            })
+        }
+
+        //取进度条到底部距离
+        var getScrollTop = function () {
+            var scrollTop = 0;
+            if (document.documentElement && document.documentElement.scrollTop) {
+                scrollTop = document.documentElement.scrollTop;
+            } else if (document.body) {
+                scrollTop = document.body.scrollTop;
+            }
+            return scrollTop;
+        };
+        //取页面可视区域高度
+        var getClientHeight = function () {
+            var clientHeight = 0;
+            if (document.body.clientHeight && document.documentElement.clientHeight) {
+                clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+            } else {
+                clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+            }
+            return clientHeight;
+        };
+        //取文档整体高度
+        var getScrollHeight = function () {
+            return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        };
+        window.onscroll = function () {
+            if (getScrollTop() + getClientHeight() >= getScrollHeight()) {
+                //页面已滚动到最底部
+                {#alert('开始加载下一页');#}
+                page = page + 1;
+                get_data(page);//页面已滚动到最底部处理
+            }
+        };
+    </script>
+</head>
+
+<body style="height: 100%">
+
+{#顶部导航栏开始#}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <div class="weui-navbar__item">
+            搜索结果
+        </div>
+    </div>
+
+    <div class="weui-tab__panel" id="us_panel">
+    </div>
+</div>
+{#顶部导航栏结束#}
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+</html>

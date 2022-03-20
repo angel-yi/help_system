@@ -1,0 +1,52 @@
+.us_name {
+    font-size: 1.2rem;
+    color: black;
+}
+
+.jubao {
+    text-align: right
+}
+
+.us_panel {
+    background-color: #e0e0e0
+}
+
+#tabbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    /*top:0; */ /*置顶*/
+    bottom: 0px; /*置底*/
+    margin: auto;
+}
+
+#navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    top: 0;
+    /*bottom: 0px; !*置底*!*/
+    margin: auto;
+}
+
+.none {
+    display: none
+}
+
+.us_info img {
+    bottom: 0;
+}
+
+.us_info img:after {
+    background: url('../images/index_user.png') #ccc;
+}
+
+#us_detail_image:after {
+    background: url('../images/index_user.png') #ccc;
+}

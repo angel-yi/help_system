@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>用户注册</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../static/css/weui.min.css">
+    <link rel="stylesheet" href="../static/css/my_info.css">
+</head>
+
+<body style="height: 100%">
+
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        {#        <a href="#" onclick="back_up()" style="color: #737373"><p>&nbsp;&nbsp;<<</p></a>#}
+        <div class="weui-navbar__item">
+            用户注册
+        </div>
+    </div>
+</div>
+<div class="weui-tab__panel"></div>
+<div class="weui-tab__panel"></div>
+<div class="weui-form__text-area" style="text-align: center">
+    <h2 class="weui-form__title">请注册您的账号</h2>
+    <div class="weui-form__desc"></div>
+    {% for message in get_flashed_messages() %}
+        <div class="alert" style="color: red">{{ message }}</div>
+    {% endfor %}
+</div>
+<div class="weui-tab__panel"></div>
+<form action="/register" method="post">
+    <div class="weui-cells__group weui-cells__group_form">
+        <div class="weui-cells__title">请输入您的信息</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell weui-cell_active">
+                <div class="weui-cell__hd"><label class="weui-label">您的账号</label></div>
+                <div class="weui-cell__bd">
+                    <input id="js_input" name="useraccount" class="weui-input" placeholder="账号/邮箱" type="text"
+                           autocomplete="on" required
+                           onkeyup="this.value=this.value.replace(/[^\w_@.]/g,'');">
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_active">
+                <div class="weui-cell__hd"><label class="weui-label">您的昵称</label></div>
+                <div class="weui-cell__bd">
+                    <input id="js_input" name="username" class="weui-input" placeholder="请勿包含特殊字符" type="text"
+                           autocomplete="on" required>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_active">
+                <div class="weui-cell__hd"><label class="weui-label">您的密码</label></div>
+                <div class="weui-cell__bd">
+                    <input id="js_input" name="password1" class="weui-input" placeholder="填写您的密码" type="password"
+                           required>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_active">
+                <div class="weui-cell__hd"><label class="weui-label">您的密码</label></div>
+                <div class="weui-cell__bd">
+                    <input id="js_input" name="password2" class="weui-input" placeholder="请再次输入密码" type="password"
+                           required>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_active">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">验证码</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input id="js_input" name="code" class="weui-input" placeholder="请输入右侧验证码" type="text"
+                           pattern="[0-9]*" size="4" required onkeyup="value=value.replace(/[^\d]/g,'')" maxlength="4">
+                </div>
+                <input id="yzm" name="yzm"
+                       style="background-color: #c9c9c9; width: 3em; height: 2em; text-align: center; padding-top: 5px; font-size: 1em"
+                       readonly>
+            </div>
+            <div class="weui-tab__panel"></div>
+            <div>
+                <button class="weui-btn weui-btn_primary" style="width: 200px" type="submit">确认注册</button>
+            </div>
+            <br>
+        </div>
+    </div>
+</form>
+<br>
+<div>
+    <a href="/login">
+        <button class="weui-btn weui-btn_default" style="width: 200px">登录</button>
+    </a>
+</div>
+
+<div class="weui-tab__panel"></div>
+
+<div class="weui-footer">
+    <p class="weui-footer__links">
+        <a href="javascript:" class="weui-footer__link">fun-find</a>
+    </p>
+    <p class="weui-footer__text">Copyright © 2020-2021</p>
+</div>
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+<script>
+    let number = "";
+    var n = 4;//这个值可以改变的，对应的生成多少个数字，根据自己需求所改
+    for (var i = 0; i < n; i++) {
+        number += Math.floor(Math.random() * 10);
+    }
+    console.log(number)
+    document.getElementById('yzm').value = number;
+
+</script>
+</body>
+</html>

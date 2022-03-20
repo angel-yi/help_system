@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>审核信息</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../../static/css/weui.min.css">
+    <link rel="stylesheet" href="../../static/css/detail.css">
+    <script type="text/javascript" src="../../static/js/detail.js"></script>
+</head>
+
+<body style="height: 100%">
+
+
+{#顶部导航栏开始#}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <div class="weui-navbar__item">
+            审核信息
+        </div>
+    </div>
+</div>
+{#顶部导航栏结束#}
+
+{# 消息列表开始 #}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <a href="#" onclick="back_up()" style="color: #737373"><p>&nbsp;&nbsp;<<</p></a>
+        <div class="weui-navbar__item">
+            审核信息
+        </div>
+        <div class="weui-navbar__item">
+            {{ examine_user }}
+        </div>
+        <div class="weui-navbar__item">
+
+            <a href="/examine_logout">
+                退出账号
+            </a>
+        </div>
+    </div>
+    <div class="weui-tab__panel"></div>
+
+    <article class="weui-article">
+        <div class="weui-panel">
+            <div class="us_info" style="text-align: center">
+                <h1 style="color: red">当前没有待审核的帖子</h1>
+{#                <img class="us_image" src="{{ user.user_head_image }}" alt="">#}
+{#                <span class="us_name">{{ user.user_name }}</span>&nbsp;&nbsp;#}
+{#                <span>{{ info.info_date }}</span>&nbsp;&nbsp;#}
+{#                <span>{{ info.info_class_name }}</span>#}
+            </div>
+        </div>
+    </article>
+</div>
+<br>
+{#<div style="text-align: center">#}
+{#    <span>#}
+{#        <a href="/examine_no/{{ info.info_id }}">#}
+{#            <button class="weui-btn_warn" style="width: 40%; height: 50px; font-size: 20px; color: white">审核不通过</button>#}
+{#        </a>#}
+{#    </span>#}
+{#    <span>#}
+{#        <a href="/examine_yes/{{ info.info_id }}">#}
+{#            <button class="weui-btn_primary" style="width: 40%; height: 50px; font-size: 20px; color: white"#}
+{#                    onclick="yz_message()">审核通过</button>#}
+{#        </a>#}
+{#    </span>#}
+{#</div>#}
+{# 消息列表结束 #}
+
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+</html>

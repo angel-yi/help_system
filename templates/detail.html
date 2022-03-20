@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>大学生信息发布</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../static/css/weui.min.css">
+    <link rel="stylesheet" href="../static/css/detail.css">
+    <script type="text/javascript" src="../static/js/detail.js"></script>
+    <script>
+        function back_up() {
+            self.location = document.referrer;
+        }
+
+        function tel_alert() {
+            var message = prompt("请输入您的验证信息", "我想获取您的联系方式！");
+            if (message != null && message !== "") {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {
+                    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    // IE6, IE5 浏览器执行代码
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.open("POST", "/send_message", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send("info_id={{ info.info_id }}&message=" + message);
+                alert('验证发送成功！');
+            }
+        }
+    </script>
+</head>
+
+<body style="height: 100%" onload="content()">
+{#顶部导航栏开始#}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <a href="#" onclick="back_up()" style="color: #737373"><p>&nbsp;&nbsp;<<</p></a>
+        <div class="weui-navbar__item">
+            详情
+        </div>
+    </div>
+    <div class="weui-tab__panel"></div>
+
+    <article class="weui-article">
+        <div class="weui-panel">
+            <div class="us_info">
+                <img class="us_image" src="{{ user.user_head_image }}" alt="">
+                <span class="us_name">{{ user.user_name }}</span>&nbsp;&nbsp;
+                <span>{{ info.info_date }}</span>&nbsp;&nbsp;
+                <span>{{ info.info_class_name }}</span>
+            </div>
+        </div>
+        <div class="weui-tab">
+            <br>
+        </div>
+        <h1>{{ info.info_title }}</h1>
+        <section>
+            <section>
+                <p class="us_abstract">
+                    {{ info.info_content }}
+                </p>
+                <p>
+                    <img src="{{ info.info_image }}" alt="">
+                </p>
+
+            </section>
+        </section>
+    </article>
+</div>
+{#顶部导航栏结束#}
+<div>
+    <button class="weui-btn weui-btn_warn" style="width: 200px" onclick="tel_alert()">感兴趣</button>
+</div>
+<br>
+<hr>
+
+{# 评论区开始 #}
+<div class="weui_cells_title">以下是评论区</div>
+<div>
+    {% if comment == null %}
+        <div class="weui-panel">
+            <div class="us_comment">
+                <p class="us_comment_p" style="font-size: 1em">还没有评论, 快来说一句吧！</p>
+                <div class="us_search">
+                    <form action="/comment/{{ info.info_id }}" method="post" class="us_message_form">
+                        <label>
+                            <input class="us_message_text" type="text" placeholder="请规范发言!" name="comment" required>
+                        </label>
+                        <input class="us_message_text_submit" type="submit" value="评论">
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        {% for comment in comment %}
+            <div style="padding-left: 10px; padding-top: 10px">
+                <div class="weui-panel">
+                    <div class="us_info">
+                        <img class="us_image" src="{{ comment.user_head_image }}" alt="">
+                        <span class="us_name" style="color: #5e5e5e">{{ comment.user_name }}</span>&nbsp;&nbsp;
+                        <span style="color: #5e5e5e">{{ comment.comment_date }}</span>&nbsp;&nbsp;
+                    </div>
+                </div>
+                <div class="weui-panel__bd" style="padding-left: 20px">
+                    <div class="weui-media-box weui-media-box_appmsg">
+                        <div class="weui-media-box__bd">
+                            <p class="weui-media-box__desc"
+                               style="font-size: 1em; color: #0d0d0d">{{ comment.comment_content }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+        <div class="weui-panel">
+            <div class="us_comment">
+                <div class="us_search">
+                    <form action="/comment/{{ info.info_id }}" method="post" class="us_message_form">
+                        <label>
+                            <input class="us_message_text" type="text" placeholder="请规范发言!" name="comment" required>
+                        </label>
+                        <input class="us_message_text_submit" type="submit" value="评论">
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{# 评论区结束 #}
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+<script>
+    document.getElementById("us_chat_image");
+
+    function content() {
+        {#var innerhtml = document.getElementById('article_content').value;#}
+        {#document.getElementById('info_content_div').innerHTML = innerhtml;#}
+        {#alert('12345');#}
+    }
+</script>
+<script>
+    $(function () {
+        var innerhtml = document.getElementById('article_content').value;
+        $("#info_content_div").innerText = innerhtml;
+    });
+</script>
+</html>

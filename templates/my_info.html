@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>用户主页</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../static/css/weui.min.css">
+    <link rel="stylesheet" href="../static/css/my_info.css">
+</head>
+
+<body style="height: 100%">
+
+
+<div class="weui-navbar" id="navbar">
+    <div class="weui-navbar__item">
+        我的信息
+    </div>
+</div>
+<div class="weui-tab__panel"></div>
+{#顶部导航栏开始#}
+<div class="us_top_panel" style="height:auto;">
+    <div class="us_user_info">
+        <div class="us_user_info_img">
+            <img src="{{ data['user_head_image'] }}" alt="用户头像" style="border-radius: 10%">
+            <p>
+                <span style="font-size: 1.2em">{{ data['user_name'] }}</span>
+                <span style="font-size: 0.8em; color: #777777">ID: {{ data['user_account'] }}</span>
+            </p>
+        </div>
+        <div class="us_info_table">
+            <table class="us_table">
+                <tr>
+                    <td>
+                        <a href="/my_info_data">
+                            <img src="../static/images/ptxx.png">
+                            <p style="color: black">
+                                我发布的
+                            </p>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/my_like">
+                            <img src="../static/images/gxqd.png">
+                            <p style="color: black">
+                                感兴趣的
+                            </p>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/my_comment">
+                            <img src="../static/images/wdpl.png">
+                            <p style="color: black">
+                                我的评论
+                            </p>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/my_count">
+                            <img src="../static/images/wdtj.png">
+                            <p style="color: black">
+                                我的统计
+                            </p>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <br>
+</div>
+{#顶部导航栏结束#}
+
+<div class="weui-cells us_cells">
+    <a class="weui-cell  weui-cell_access" href="/edit_head_image">
+        <div class="weui-cell__bd">
+            <p>修改头像</p>
+        </div>
+        <div class="weui-cell__ft">修改</div>
+    </a>
+    <a class="weui-cell  weui-cell_access" href="/edit_name">
+        <div class="weui-cell__bd">
+            <p>修改昵称</p>
+        </div>
+        <div class="weui-cell__ft">修改</div>
+    </a>
+    <a class="weui-cell  weui-cell_access" href="/edit_name">
+        <div class="weui-cell__bd">
+            <p>修改密码</p>
+        </div>
+        <div class="weui-cell__ft">修改</div>
+    </a>
+    <a class="weui-cell  weui-cell_access" href="/edit_name">
+        <div class="weui-cell__bd">
+            <p>添加联系方式</p>
+        </div>
+        <div class="weui-cell__ft">添加</div>
+    </a>
+    <br>
+    <div>
+        <a href="/logout">
+            <button class="weui-btn weui-btn_default" style="width: 200px">退出登录</button>
+        </a>
+    </div>
+</div>
+
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+</html>

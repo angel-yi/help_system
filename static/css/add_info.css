@@ -1,0 +1,59 @@
+.us_name {
+    font-size: 1.2rem;
+}
+
+.jubao {
+    text-align: right
+}
+
+/*.us_abstract{ text-indent: 2em}*/
+#tabbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    /*top:0; */ /*置顶*/
+    bottom: 0px; /*置底*/
+    margin: auto;
+}
+
+#navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    max-width: 100%;
+    left: 0;
+    top: 0;
+    /*bottom: 0px; !*置底*!*/
+    margin: auto;
+}
+
+.none {
+    display: none
+}
+
+.us_image {
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
+}
+
+.us_chat_image {
+    height: 30px;
+    width: 30px;
+    margin-left: 30px;
+}
+
+.info_notice {
+    color: red;
+    text-align: center;
+}
+
+.us_info {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}

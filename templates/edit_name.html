@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>大学生信息发布</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../static/css/weui.min.css">
+    <link rel="stylesheet" href="../static/css/add_info.css">
+    <script type="text/javascript" src="../static/js/detail.js"></script>
+    <script type="text/javascript">    weui.alert('alert');</script>
+    <script>
+        function back_up() {
+            self.location = document.referrer;
+        }
+    </script>
+    <script>
+
+        function showImg() {
+            var img_file = document.getElementById('uploaderFiles');
+            console.log(img_file.src)
+            var file = document.getElementById('uploaderInput').files[0];
+            var re = new FileReader();
+            re.onloadend = function () {
+                {#img_file.src = re.result;#}
+                img_file.src = re.result;
+            }
+            if (file) {
+                re.readAsDataURL(file);
+            } else {
+                img_file.src = re.result;
+            }
+            console.log(img_file.src)
+            {#re.readAsDataURL(file);#}
+            {#re.onload = function(re){#}
+            {#    $('.img_id').attr("src", re.result);#}
+        }
+    </script>
+</head>
+
+<body style="height: 100%">
+
+{#顶部导航栏开始#}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <a href="#" onclick="back_up()" style="color: #737373"><p>&nbsp;&nbsp;<<</p></a>
+        <div class="weui-navbar__item">
+            修改昵称
+        </div>
+    </div>
+    <div class="weui-tab__panel"></div>
+    <br>
+    <div class="us_info"
+         style="background-color: #efeff4; height: 550px; border-radius: 5%; width: 90%; margin-left: 5%">
+        <form method="post" action="/edit_name">
+            <div style="border-radius: 10%; padding-top: 20px">
+                {#                <label>#}
+                {# <img id="uploaderFiles" src="{{ data.user_head_image }}"
+{#                            style="width: 300px; height: 300px; border-radius: 10%;">#}
+                {#                    <input value="{{ data.user_name }}" style="width: 18em; height: 3em" name="user_name">#}
+                {#                </label>#}
+                <div class="weui-cells weui-cells_form">
+                    <div class="weui-cell weui-cell_active">
+                        <div class="weui-cell__hd"><label class="weui-label">新的昵称</label></div>
+                        <div class="weui-cell__bd">
+                            <input id="js_input" name="user_name" value="{{ data.user_name }}" class="weui-input"
+                                   placeholder="账号/邮箱" type="text" autocomplete="on" required>
+                        </div>
+                    </div>
+                    <div class="weui-cell weui-cell_active">
+                        <div class="weui-cell__hd"><label class="weui-label">新密码</label></div>
+                        <div class="weui-cell__bd">
+                            <input id="js_input" name="pwd1" class="weui-input" type="password" autocomplete="on">
+                        </div>
+                    </div>
+                    <div class="weui-cell weui-cell_active">
+                        <div class="weui-cell__hd"><label class="weui-label">确认密码</label></div>
+                        <div class="weui-cell__bd">
+                            <input id="js_input" name="pwd2" class="weui-input" type="password" autocomplete="on">
+                        </div>
+                    </div>
+                    <div class="weui-cell weui-cell_active">
+                        <div class="weui-cell__hd"><label class="weui-label">联系方式</label></div>
+                        <div class="weui-cell__bd">
+                            <input id="js_input" name="tel" value="{{ data.user_tel }}" placeholder="邮箱/QQ/微信/电话"
+                                   class="weui-input" type="text" autocomplete="on">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {% for message in get_flashed_messages() %}
+                    <div class="alert" style="color: red">{{ message }}</div>
+                {% endfor %}
+                <button class="weui-btn weui-btn_primary" style="width: 200px">修改</button>
+            </div>
+        </form>
+    </div>
+</div>
+{#顶部导航栏结束#}
+
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+</html>

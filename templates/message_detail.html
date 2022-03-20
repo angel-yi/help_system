@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>大学生信息发布</title>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../static/css/weui.min.css">
+    <link rel="stylesheet" href="../static/css/message.css">
+    <script type="text/javascript">
+        function message_click(message_id) {
+            window.location.href = "/message_detail/" + message_id;
+        }
+
+        function hl_message(message_id) {
+            window.location.href = "/hl_message/" + message_id;
+        }
+
+        function yz_message() {
+            var message = prompt("请输入您联系方式！\n1,联系方式为隐私数据\n2,请确认无误后发送！！", "{{ tel.user_tel }}");
+            if (message != null && message !== "") {
+                var xmlhttp;
+                if (window.XMLHttpRequest) {
+                    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    // IE6, IE5 浏览器执行代码
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.open("POST", "/yz_message", true);
+                xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xmlhttp.send("user_id={{ message.info_user_id }}&info_id={{ message.info_id }}&message=" + message);
+                alert('验证发送成功！');
+            }
+        }
+    </script>
+
+</head>
+
+<body style="height: 100%">
+
+
+{#顶部导航栏开始#}
+<div class="weui-tab" style="height:auto;">
+    <div class="weui-navbar" id="navbar">
+        <div class="weui-navbar__item">
+            消息详情
+        </div>
+    </div>
+</div>
+{#顶部导航栏结束#}
+<div class="weui-tab__panel"></div>
+{# 消息列表开始 #}
+<div style="width: 90%; padding-left: 20px; padding-top: 30px;">
+    <div style="height: 520px; background-color: #efefef; border-radius: 5%">
+        <div style="text-align: center; padding-top: 10px">
+            <img style="width: 100px; height: 100px; border-radius: 30%;" src="{{ message.user_head_image }}" alt="">
+            <p class="us_name" style="color: red">{{ message.user_name }}</p>
+            <p>{{ message.send_date }}</p>
+        </div>
+        <br>
+        <div style="padding-left: 30px">
+            <p><span>用户名: </span>&nbsp;&nbsp;<span>{{ message.user_name }}</span></p>
+            <p><span>用户ID: </span>&nbsp;&nbsp;<span>{{ message.user_id }}</span></p>
+            <p><span>用户注册时间: </span>&nbsp;&nbsp;<span>{{ message.user_reg_date }}</span></p>
+            <p><span>消息发送时间: </span>&nbsp;&nbsp;<span>{{ message.send_date }}</span></p>
+            <p><span>来源: </span>&nbsp;&nbsp;<span><a href="/detail/{{ message.info_id }}">信息ID {{ message.info_id }}</a>&nbsp;&nbsp;&nbsp;内容如下▼▼▼</span>
+            </p>
+            <br>
+            <div style="background-color: #a6e1ec; width: 90%; height: 165px; border-radius: 5%">
+                <textarea
+                        style="font-size: 1.3em; padding: 10px; color: black; height: 135px; width: 90%; background-color: #a6e1ec; border: 0"
+                        readonly>{{ message.message_content }}</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div style="text-align: center">
+    <span>
+        <button class="weui-btn_warn" style="width: 40%; height: 50px; font-size: 20px; color: white"
+                onclick="hl_message({{ message.message_id }})">忽略</button>
+{#    </span>#}
+{#    <span>#}
+        <button class="weui-btn_primary" style="width: 40%; height: 50px; font-size: 20px; color: white"
+                onclick="yz_message()">验证</button>
+    </span>
+</div>
+{# 消息列表结束 #}
+
+
+<div class="weui-tab__panel"></div>
+
+{#底部导航栏开始#}
+<div class="weui-tabbar" id="tabbar">
+    <a href="/index" class="weui-tabbar__item weui-bar__item--on">
+        {#      <span index_class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>#}
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_index.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">首页</p>
+    </a>
+    <a href="/index_class" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_class.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">分类</p>
+    </a>
+    <a href="/add_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/fabu.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">发布</p>
+    </a>
+    <a href="/message" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_msg.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">信息</p>
+    </a>
+    <a href="/my_info" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../static/images/index_user.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+    </a>
+</div>
+</body>
+</html>
