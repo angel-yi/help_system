@@ -56,7 +56,8 @@
                         <span>{{ info.info_class_name }}</span>
                     </div>
                 </div>
-                <p class="weui-media-box__desc" style="color: dodgerblue; font-size: 1em">我评论：{{ info.comment_content }}</p>
+                <p class="weui-media-box__desc" style="color: dodgerblue; font-size: 1em">
+                    我评论：{{ info.comment_content }}</p>
                 <div class="weui-panel__bd" style="background-color: #c4c4c4">
                     <a href="/detail/{{ info.info_id }}" class="weui-media-box weui-media-box_appmsg">
                         {% if info.info_image == '' %}
@@ -66,7 +67,8 @@
                         {% else %}
                             <div class="weui-media-box__hd">
                                 <img height='300' width='300' id='us_detail_image' class="weui-media-box__thumb"
-                                     src="{{ info.info_image }}" onerror="this.src='../static/images/ktp.png';this.onerror=null">
+                                     src="{{ info.info_image }}"
+                                     onerror="this.src='../static/images/ktp.png';this.onerror=null">
                             </div>
                         {% endif %}
                         <div class="weui-media-box__bd">

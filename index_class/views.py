@@ -1,7 +1,6 @@
 # coding:utf-8
 import datetime
 import random
-
 from flask import render_template, request, jsonify, session, redirect, url_for, flash
 
 from sql_cx import SqlCx
@@ -92,6 +91,7 @@ def search_profile_ajax(word, page=1):
     print(info_data_list)
     return jsonify(info_data_list)
 
+
 @class_bp.route('/info_examine', methods=['GET'])
 def info_examine_profile():
     examine_user = session.get('examine_user')
@@ -140,12 +140,14 @@ def examine_detail_profile():
             info_data = random.choice(info_data)
             sql = f"select * from users_data where user_account='{info_data['info_user_id']}'"
             user_data = SqlCx(sql)
-            return render_template('examine/examine_detail.html', info=info_data, user=user_data[0], examine_user=examine_user)
+            return render_template('examine/examine_detail.html', info=info_data, user=user_data[0],
+                                   examine_user=examine_user)
         else:
             return render_template('examine/examine_finish.html', examine_user=examine_user)
     else:
         code = 3230
         return render_template('examine/examine_login.html', code=code)
+
 
 @class_bp.route('/examine_logout', methods=['GET'])
 def examine_logout_profile():

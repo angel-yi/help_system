@@ -152,7 +152,8 @@
                         <td style="vertical-align: middle" class="class_name"
                             id="{{ data.info_class_value }}">{{ data.info_class_name }}</td>
                         <td style="vertical-align: middle" class="info_image">
-                            <img id="info_image" src="{{ data.info_image }}" width="100" height="100" alt="图片" onerror="this.src='../static/images/ktp.png';this.onerror=null"">
+                            <img id="info_image" src="{{ data.info_image }}" width="100" height="100" alt="图片"
+                                 onerror="this.src='../static/images/ktp.png';this.onerror=null"">
                         </td>
 
                         <td style="vertical-align: middle" class="info_data">{{ data.info_date }}</td>
@@ -161,9 +162,9 @@
                             <p>
                                 <button class="btn-default" onclick="bianji({{ data.info_id }})">编辑</button>
                             </p>
-{#                            <p>#}
-{#                                <button class="btn-primary" onclick="shenhe({{ data.info_id }})">审核</button>#}
-{#                            </p>#}
+                            {#                            <p>#}
+                            {#                                <button class="btn-primary" onclick="shenhe({{ data.info_id }})">审核</button>#}
+                            {#                            </p>#}
                             <p>
                                 <button class="btn-danger" onclick="shanchu({{ data.info_id }})">删除</button>
                             </p>

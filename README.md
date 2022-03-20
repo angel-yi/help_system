@@ -1,6 +1,7 @@
 # 在大学使用Flask写的信息发布、管理系统
 
 ## 基于Flask框架
+
 ### 实现的功能
 
 ![img.png](img/img.png)

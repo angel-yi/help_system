@@ -1,6 +1,7 @@
 # coding:utf-8
-from datetime import timedelta
 import pymysql
+from datetime import timedelta
+
 pymysql.install_as_MySQLdb()
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy

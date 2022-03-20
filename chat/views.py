@@ -1,6 +1,5 @@
 # coding:utf-8
 import time
-
 from flask import render_template, url_for, redirect
 
 import app

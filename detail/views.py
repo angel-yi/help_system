@@ -1,6 +1,5 @@
 # coding:utf-8
 import datetime
-
 from flask import render_template, request, session, redirect, url_for, flash
 
 from mgc import mgc_jc

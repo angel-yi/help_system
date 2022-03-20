@@ -3,9 +3,11 @@ import datetime
 import os
 import random
 from flask import render_template, url_for, redirect, request, session, flash
+
 import dw
 from sql_cx import SqlCx
 from . import admin_bp
+
 
 @admin_bp.route('/admin_profile', methods=['GET'])
 def admin_profile():
@@ -309,7 +311,8 @@ def auth_manage_profile(page=1):
         else:
             page_num = int(len(data_count) / 7)
         user = session.get('admin_user')
-        return render_template('admin/admin_auth_manage.html', data=info_data_list, page=page, page_num=page_num, user=user)
+        return render_template('admin/admin_auth_manage.html', data=info_data_list, page=page, page_num=page_num,
+                               user=user)
     else:
         return render_template('admin/admin_login.html')
 

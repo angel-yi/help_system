@@ -1,7 +1,6 @@
 # coding:utf-8
 import datetime
 import random
-
 from flask import render_template
 from flask import session, url_for, redirect, request, flash
 
@@ -185,6 +184,7 @@ def delete_like_profile(users_like_id):
     else:
         flash('请您先登录！')
         return redirect(url_for('my_info.login_profile'))
+
 
 @my_info_bp.route('/delete_comment/<int:comment_id>', methods=['GET'])
 def delete_comment_profile(comment_id):

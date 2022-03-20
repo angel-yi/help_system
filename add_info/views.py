@@ -2,7 +2,6 @@
 
 import datetime
 import random
-
 from flask import render_template, url_for, redirect, request, session, flash
 
 from sql_cx import SqlCx
